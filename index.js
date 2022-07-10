@@ -32,7 +32,13 @@ async function init(){
     stats.now = JSON.parse(JSON.stringify(stats.start));
 
     var fileDataStart = `${stats.start.pp}\n${stats.start.play_count}\n${stats.start.follower_count}\n`;
+
+    log(`PP: ${stats.start.pp} | PLAYCOUNT: ${stats.start.play_count} | FOLOWERS: ${stats.start.follower_count}`);
+
+    fs.writeFile(`${texts_dir}\\stats_desc.txt`, mode,`utf-8`,()=> {return;});
+
     fs.writeFile(`${texts_dir}\\stats_start.txt`,fileDataStart,`utf-8`,()=> {return;});
+
     var fileDataDiff = `+0 pp\n+0\n+0\n`;
     fs.writeFile(`${texts_dir}\\stats_dif.txt`,fileDataDiff,`utf-8`,()=> {return;});
 }
@@ -60,6 +66,9 @@ async function checkdetails(){
     folowersSign = stats.diff.follower_count>=0?`+`:'-';
     var folowers = `${folowersSign}${stats.diff.follower_count}`;
     var fileDataDifUpdate = `${pp}\n+${stats.diff.play_count}\n${folowers}\n`;
+
+    log(`PP: ${pp} | PLAYCOUNT: ${stats.diff.play_count} | FOLOWERS: ${folowers}`);
+
     fs.writeFile(`${texts_dir}\\stats_dif.txt`,fileDataDifUpdate,`utf-8`,()=> {return;});
 }
 
